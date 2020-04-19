@@ -1,6 +1,8 @@
 import zipfile
 
 """
+http://www.pythonchallenge.com/pc/def/channel.html
+http://www.pythonchallenge.com/pc/def/channel.zip
 Setup: unzip channel.zip.  Copy channel.zip into extracted folder.  Run 06.py from same location.
 """
 
