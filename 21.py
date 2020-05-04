@@ -40,11 +40,11 @@ while True:
 	try:
 		data = zlib.decompress(data)
 		second_fail = False
-		#print("Zlib")
+		print(" ",end='')
 	except:
 		try:
 			data = bz2.decompress(data)
-			#print("BZ2")
+			print("0",end='')
 			second_fail = False
 		except:
 			if second_fail:
@@ -53,10 +53,23 @@ while True:
 				data = bytearray(data)
 				data.reverse()
 				data = bytes(data)
-				#print("reverse")
+				print("")
 				second_fail = True
+
+"""
+      000          000      00000000    00000000    0000000000  00000000
+    0000000      0000000    000000000   000000000   000000000   000000000
+   00     00    00     00   00      00  00      00  00          00      00
+  00           00       00  00      00  00      00  00          00      00
+  00           00       00  000000000   000000000   00000000    000000000
+  00           00       00  00000000    00000000    00000000    00000000 
+  00           00       00  00          00          00          00   00 
+   00     00    00     00   00          00          00          00    00 
+    0000000      0000000    00          00          000000000   00     00 
+      000          000      00          00          0000000000  00      00
+"""
 
 with open("./package.pack.txt", 'wb') as outfile:
 	outfile.write(data) # "look at your logs"
 
-# TODO figure out next steps...
+#http://www.pythonchallenge.com/pc/hex/copper.html
