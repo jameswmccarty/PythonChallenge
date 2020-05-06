@@ -48,12 +48,13 @@ fixed = False
 while not fixed:
 	for idx in range(len(data)):
 		for i in range(255):
-			trial = data.copy()
+			trial = data[:]
 			trial[idx] = i
 			trial = bytes(trial)
 			h = hashlib.new('md5')
 			h.update(trial)
 			if h.hexdigest() == 'bbb8b499a0eef99b52c7f13f4e78c24b':
+				#print(idx, i) # 1234 168
 				with open('myfixed.zip', 'wb') as outfile:
 					outfile.write(trial)
 				fixed = True
@@ -61,4 +62,5 @@ while not fixed:
 
 # file mybroken.gif says 'speed'
 
-# TODO: Investigate how/if mybroken.gif is broken
+# Investigate how/if mybroken.gif is broken
+# File is OK.  Answer is 'speedboat'  (hint: I'm missing the boat)
