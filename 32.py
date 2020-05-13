@@ -116,14 +116,11 @@ def genboard(poss, res=[]):
 def find_unis(ruleset):
 	flt = []
 	for i in range(len(ruleset[0])):
-		flt.append((i,set()))
-	
+		flt.append((i,set()))	
 	for rule in ruleset:
 		for i in range(len(flt)):
 			flt[i][1].add(rule[i])
-
 	flt = [ x for x in flt if len(x[1]) == 1 ]
-
 	return flt	
 
 
@@ -141,9 +138,6 @@ with open("up.txt", 'r') as infile:
 			v_rules.append([int(x) for x in line.strip().split(' ')])
 		elif horz == True and line.strip() != '':
 			h_rules.append([int(x) for x in line.strip().split(' ')])
-
-#for i in range(len(v_rules)):
-#	grid.append([0] * len(h_rules))
 
 #print(len(v_rules))
 
@@ -170,6 +164,8 @@ for _ in genboard(v[:]):
 """
 
 solved = False
+h_last = -1
+v_last = -1
 while not solved:
 
 	# v_idx[i] impacts hrules[i] at v_idx
@@ -189,7 +185,16 @@ while not solved:
 			v[rule[0]] = [ x for x in v[rule[0]] if x[h_idx] == tuple(rule[1])[0] ]
 	if sum([ len(x) for x in v ]) == len(v) and sum([ len(x) for x in h ]) == len(h):
 		solved = True
-
+	if h_last == sum([ len(x) for x in h ]) and v_last == sum([ len(x) for x in v ]):
+	# No progress, so try a brute force solution
+		for _ in genboard(v[:]):
+			if score_grid(transpose(_)):
+				for line in transpose(_):
+					print(''.join([str(x) for x in line]).replace('1', 'X').replace('0', ' '))
+				exit()
+	else:
+		h_last = sum([ len(x) for x in h ])
+		v_last = sum([ len(x) for x in v ])
 
 for line in h:
 	print(''.join([str(x) for x in line[0]]).replace('1', 'X').replace('0', ' '))
@@ -227,15 +232,10 @@ XXXXXXXXXXXXXXXXXXXXXX    X
    XX  XXXXXXXX XXXXX     X     
         XX     XX     XXXX      
           XXXXX  XX X   X       
-                   XXXXX        
+                   XXXXX   
 """
+# http://www.pythonchallenge.com/pc/rock/python.html
+# Congrats! You made it through to the smiling python.
 
-
-
-
-	
-	
-
-
-
-
+# "Free" as in "Free speech", not as in "free... 
+# http://www.pythonchallenge.com/pc/rock/beer.html
